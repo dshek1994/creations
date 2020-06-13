@@ -1,6 +1,18 @@
+# ----- Global Variables -----
+
+# Game board
 board = ["-", "-", "-", 
          "-", "-", "-",
          "-", "-", "-"]
+
+# If game is still going
+game_still_going = True
+
+# Who won? Or tie?
+winner = None
+
+# Who's turn is it
+current_player = "X"
 
 def display_board():
     print(board[0] + " | " + board[1] + " | " + board[2])
@@ -18,8 +30,14 @@ def play_game():
         check_if_game_over()
 
         flip_player()
+    
+    # The game has ended
+    if winner == "X" or winner =="O":
+        print (winner + " won.")
+    elif winner == None:
+        print("Tie.")
 
-def handle_turn():
+def handle_turn(player):
     position = input("Choose a position from 1-9: ")
     postion = int(position) - 1
 
@@ -37,6 +55,9 @@ def check_if_win():
     return
 
 def check_if_tie():
+    return
+
+def flip_player():
     return
 
 
