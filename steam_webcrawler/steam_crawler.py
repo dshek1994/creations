@@ -34,7 +34,6 @@ def steam_api_request(key, steamid):
     # print(r_player.json()['response']['players'][0])
 
 def collect_player_data(player, friendslist):
-    n = 0
     #Grab alias of player
     alias = collect_steam_alias(player)
 
