@@ -124,6 +124,7 @@ def collect_num_friends(player):
 def convert_unix_timestamp(ts):
     return datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M-%S')
 
+#Function prints out data in a readable format in terminal
 def print_data(some_data):
     i = 0
     for i in range(len(data)):
