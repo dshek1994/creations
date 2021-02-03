@@ -9,7 +9,6 @@ API_KEY = "8C2ED19595C298D4B8C257996D95C860"
 STEAM_ID = "76561198807547224"
 
 steam_id_list = []
-steam_id_list.append(STEAM_ID)
 
 data = []
 
@@ -35,6 +34,7 @@ def steam_api_request(key, steamid):
     # print(r_player.json()['response']['players'][0])
 
 def collect_player_data(player, friendslist):
+    n = 0
     #Grab alias of player
     alias = collect_steam_alias(player)
 
@@ -87,8 +87,9 @@ def collect_player_data(player, friendslist):
 
 #Function to crawl through steam profiles and collect basic info
 def crawl_steam_profiles():
+    steam_id_list.append(STEAM_ID)
     x = 0
-    while x < 25:
+    while x < 500:
         player, friendslist = steam_api_request(API_KEY, steam_id_list[x])
         try:
             data.append(collect_player_data(player,friendslist))
@@ -123,6 +124,14 @@ def collect_num_friends(player):
 #Function converts unix timestamp to a readable one
 def convert_unix_timestamp(ts):
     return datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M-%S')
+
+def checkForDuplicates(data_list):
+    for elem in data_list:
+        if elem in data_list:
+            data_list.remove(elem)
+        else:
+            data_list.append(elem)
+
 
 #Function prints out data in a readable format in terminal
 def print_data(some_data):
