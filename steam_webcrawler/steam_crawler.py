@@ -9,7 +9,6 @@ API_KEY = "8C2ED19595C298D4B8C257996D95C860"
 STEAM_ID = "76561198807547224"
 
 steam_id_list = []
-
 data = []
 
 def steam_api_request(key, steamid):
@@ -39,7 +38,6 @@ def collect_player_data(player, friendslist):
 
     #Grab steam id of player
     steam_id = collect_steam_id(player)
-
     #Grab steam avatar of player
     avatar = collect_steam_avatar(player)
 
@@ -61,6 +59,7 @@ def collect_player_data(player, friendslist):
     player_data.append(avatar)
     player_data.append(num_friends)
     player_data.append(time_created_conv)
+
 
     #Loop and append all steam ids in player's friends list to the main steam_id_list
     #We do this to loop through all those steamids, crawling linearly
@@ -88,17 +87,18 @@ def collect_player_data(player, friendslist):
 def crawl_steam_profiles():
     steam_id_list.append(STEAM_ID)
     x = 0
-    while x < 500:
+    while x < 100:
         player, friendslist = steam_api_request(API_KEY, steam_id_list[x])
         try:
             data.append(collect_player_data(player,friendslist))
-            print_data(data)
+            # print_data(data)
+            
         except KeyError: #some steam profiles keep friendslist private so we skip over them with a try catch to handle KeyErrors
             pass
             # player, friendslist = steam_api_request(API_KEY, player.json()['response']['players'][0]['steamid'])
             # print(player.json())
         x += 1
-    #print_data(data)
+    print_data(data)
 
 #Function collects steam ID of player
 def collect_steam_id(player):
@@ -130,6 +130,8 @@ def checkForDuplicates(data_list):
             data_list.remove(elem)
         else:
             data_list.append(elem)
+    
+    return data_list
 
 
 #Function prints out data in a readable format in terminal
